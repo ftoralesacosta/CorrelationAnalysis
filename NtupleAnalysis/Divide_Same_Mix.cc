@@ -187,7 +187,7 @@ int main(int argc, char *argv[])
 	  1,ptbins[ipt],ptbins[ipt+1],100*ztbins[izt],100*ztbins[izt+1]));
 
       DNN1_entries = Same_DNN1_Corr[izt+ipt*nztbins]->GetEntries();
-      fprintf(stderr, "%s:%d: Number of Entries in Same DNN1 %lu \n",__FILE__,__LINE__,DNN1_entries);
+      fprintf(stderr, "%s:%d: Number of Entries in Same DNN1 %lld \n",__FILE__,__LINE__,DNN1_entries);
       
       if (Same_DNN1_Corr[izt+ipt*nztbins] == NULL) {
 	std::cout << "Same 1 TH2D fail" << std::endl;
@@ -220,7 +220,7 @@ int main(int argc, char *argv[])
 		  ptbins[ipt],ptbins[ipt+1],100*ztbins[izt],100*ztbins[izt+1]);
 
 	  DNN1_entries = Mix_Inclusive_Corr[izt+ipt*nztbins]->GetEntries();
-	  fprintf(stderr, "%s:%d: Number of Entries in Mix Inclusive %lu \n",__FILE__,__LINE__,DNN1_entries);
+	  fprintf(stderr, "%s:%d: Number of Entries in Mix Inclusive %lld \n",__FILE__,__LINE__,DNN1_entries);
       
 	  if (Mix_Inclusive_Corr[izt+ipt*nztbins] == NULL) {
 	    std::cout << "Mix Incl TH2D fail" << std::endl;
@@ -273,8 +273,11 @@ int main(int argc, char *argv[])
 
     Mix_Inclusive_Corr[izt+ipt*nztbins]->Scale(1.0/mix_Inclusive_intgrl);
     //Mix_Inclusive_Corr[izt+ipt*nztbins]->Scale(1.0/300);
-    Mix_DNN1_Corr[izt+ipt*nztbins]->Scale(1.0/mix_DNN1_intgrl);
-    Mix_DNN2_Corr[izt+ipt*nztbins]->Scale(1.0/mix_DNN2_intgrl);
+//     Mix_DNN1_Corr[izt+ipt*nztbins]->Scale(1.0/mix_DNN1_intgrl);
+//     Mix_DNN2_Corr[izt+ipt*nztbins]->Scale(1.0/mix_DNN2_intgrl);
+
+    Mix_DNN1_Corr[izt+ipt*nztbins]->Scale(1.0/mix_Inclusive_intgrl);
+    Mix_DNN2_Corr[izt+ipt*nztbins]->Scale(1.0/mix_Inclusive_intgrl);
 
     std::cout<<mix_DNN1_intgrl<<std::endl;
 
@@ -283,11 +286,11 @@ int main(int argc, char *argv[])
     //DIVIDE MIXING
     Same_Inclusive_Corr[izt+ipt*nztbins]->Divide(Mix_Inclusive_Corr[izt+ipt*nztbins]);
 
-    Same_DNN1_Corr[izt+ipt*nztbins]->Divide(Mix_DNN1_Corr[izt+ipt*nztbins]);
-    Same_DNN2_Corr[izt+ipt*nztbins]->Divide(Mix_DNN2_Corr[izt+ipt*nztbins]);
+//     Same_DNN1_Corr[izt+ipt*nztbins]->Divide(Mix_DNN1_Corr[izt+ipt*nztbins]);
+//     Same_DNN2_Corr[izt+ipt*nztbins]->Divide(Mix_DNN2_Corr[izt+ipt*nztbins]);
 
-    // Same_DNN1_Corr[izt+ipt*nztbins]->Divide(Mix_Inclusive_Corr[izt+ipt*nztbins]);
-    // Same_DNN2_Corr[izt+ipt*nztbins]->Divide(Mix_Inclusive_Corr[izt+ipt*nztbins]);
+    Same_DNN1_Corr[izt+ipt*nztbins]->Divide(Mix_Inclusive_Corr[izt+ipt*nztbins]);
+    Same_DNN2_Corr[izt+ipt*nztbins]->Divide(Mix_Inclusive_Corr[izt+ipt*nztbins]);
 
     fprintf(stderr, "%s: %d: Division OK\n",__FILE__,__LINE__);
 
